@@ -15,15 +15,15 @@ class SecuredControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->followRedirects(false);
+        $session = $client->getContainer()->get('session');
+        $client->getCookieJar()->set(new \Symfony\Component\BrowserKit\Cookie($session->getName(), $session->getId()));
+
+        # fake request
+        $client->request('GET', '/');
 
         $token = new UsernamePasswordToken('admin', 'adminpass', 'secured_area', array("ROLE_ADMIN"));
-        $session = $client->getContainer()->get('session');
         $session->set('_security_secured_area', serialize($token));
-        // try to save
         $session->save();
-        // force cookies
-        //$client->getCookieJar()->set(new \Symfony\Component\BrowserKit\Cookie(session_name(), true));
-        //$client->getCookieJar()->set(new \Symfony\Component\BrowserKit\Cookie($session->getName(), true));
 
         $client->request('GET', '/demo/secured/hello/Alexey');
 
