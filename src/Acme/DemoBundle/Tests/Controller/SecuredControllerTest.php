@@ -15,21 +15,32 @@ class SecuredControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $client->followRedirects(false);
-
-        $token = new UsernamePasswordToken('admin', 'adminpass', 'secured_area', array("ROLE_ADMIN"));
         $session = $client->getContainer()->get('session');
-        $session->set('_security_secured_area', serialize($token));
-        // try to save
-        $session->save();
-        // force cookies
-        //$client->getCookieJar()->set(new \Symfony\Component\BrowserKit\Cookie(session_name(), true));
-        //$client->getCookieJar()->set(new \Symfony\Component\BrowserKit\Cookie($session->getName(), true));
+        $client->getCookieJar()->set(new \Symfony\Component\BrowserKit\Cookie($session->getName(), $session->getId()));
 
-        $client->request('GET', '/demo/secured/hello/Alexey');
+        # fake request
+        $client->request('GET', '/');
+
+        $token = new UsernamePasswordToken( 'admin', 'adminpass', 'secured_area', array() );
+        $session->set('_security_secured_area', serialize($token));
+        $session->save();
+
+        $crawler = $client->request('GET', '/demo/secured/hello/admin/Alexey');
 
         $this->assertEquals(
             $client->getResponse()->getStatusCode(),
             200
         );
+
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('html:contains("logged in as admin")')->count()
+        );
+
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('h1:contains("Hello Alexey secured for Admins only!")')->count()
+        );
+
     }
 }
