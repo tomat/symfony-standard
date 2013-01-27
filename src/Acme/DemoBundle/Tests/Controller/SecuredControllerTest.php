@@ -81,13 +81,22 @@ class SecuredControllerTest extends WebTestCase
             200
         );
 
-        $client->request('GET', '/demo/secured/hello/admin/Alexey');
-
-        echo $client->getResponse()->getContent();
+        $crawler = $client->request('GET', '/demo/secured/hello/admin/Alexey');
 
         $this->assertEquals(
             $client->getResponse()->getStatusCode(),
             200
         );
+
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('html:contains("logged in as admin")')->count()
+        );
+
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('h1:contains("Hello Alexey secured for Admins only!")')->count()
+        );
+
     }
 }
