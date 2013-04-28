@@ -2,9 +2,10 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
+    database_name1:    sf2_auth_test1
+    database_name2:    sf2_auth_test2
     database_user:     root
-    database_password: ~
+    database_password: password
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1

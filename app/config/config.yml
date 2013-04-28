@@ -38,20 +38,37 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   %database_driver%
-        host:     %database_host%
-        port:     %database_port%
-        dbname:   %database_name%
-        user:     %database_user%
-        password: %database_password%
-        charset:  UTF8
-        # if using pdo_sqlite as your database driver, add the path in parameters.yml
-        # e.g. database_path: %kernel.root_dir%/data/data.db3
-        # path:     %database_path%
+        connections:
+            conn1:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name1%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+            conn2:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name2%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
 
     orm:
         auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
+        # auto_mapping: true
+        default_entity_manager:   conn1_manager
+        entity_managers:
+            conn1_manager:
+                mappings:
+                    AcmeDemoBundle: ~
+                connection:       conn1
+            conn2_manager:
+                mappings:
+                    AcmeDemoBundle: ~
+                connection:       conn2
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -60,3 +77,10 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Acme\DemoBundle\Entity\User
+    service:
+        user_manager: acme.user_manager.conn1 # need to set default
