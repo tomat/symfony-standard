@@ -10,6 +10,8 @@ use Acme\DemoBundle\Form\ContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use JMS\SecurityExtraBundle\Annotation\Secure;
+
 class DemoController extends Controller
 {
     /**
@@ -35,6 +37,33 @@ class DemoController extends Controller
      * @Template()
      */
     public function contactAction()
+    {
+        $form = $this->get('form.factory')->create(new ContactType());
+
+        $request = $this->get('request');
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $mailer = $this->get('mailer');
+                // .. setup a message and send it
+                // http://symfony.com/doc/current/cookbook/email.html
+
+                $this->get('session')->getFlashBag()->set('notice', 'Message sent!');
+
+                return new RedirectResponse($this->generateUrl('_demo'));
+            }
+        }
+
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * @Route("/jms_secure", name="_demo_secure")
+     * @Template()
+     *
+     * @Secure("ROLE_USER")
+     */
+    public function secureAction()
     {
         $form = $this->get('form.factory')->create(new ContactType());
 
