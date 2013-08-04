@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c3d347eb3e4fdbda0648a0e2ee795efe",
+    "hash": "1405c5383f2866d4e4715029fe7a447b",
     "packages": [
         {
             "name": "doctrine/common",
@@ -464,25 +464,25 @@
         },
         {
             "name": "jms/di-extra-bundle",
-            "version": "1.4.0",
+            "version": "dev-patch-2",
             "target-dir": "JMS/DiExtraBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/schmittjoh/JMSDiExtraBundle.git",
-                "reference": "1.4.0"
+                "url": "https://github.com/tomat/JMSDiExtraBundle.git",
+                "reference": "59eafd96707873d8001e01a97eadd8c66ca38bcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSDiExtraBundle/zipball/1.4.0",
-                "reference": "1.4.0",
+                "url": "https://api.github.com/repos/tomat/JMSDiExtraBundle/zipball/59eafd96707873d8001e01a97eadd8c66ca38bcc",
+                "reference": "59eafd96707873d8001e01a97eadd8c66ca38bcc",
                 "shasum": ""
             },
             "require": {
                 "jms/aop-bundle": ">=1.0.0,<1.2-dev",
                 "jms/metadata": "1.*",
-                "symfony/finder": ">=2.1,<3.0",
-                "symfony/framework-bundle": ">=2.1,<3.0",
-                "symfony/process": ">=2.1,<3.0"
+                "symfony/finder": "~2.1",
+                "symfony/framework-bundle": "~2.1",
+                "symfony/process": "~2.1"
             },
             "require-dev": {
                 "doctrine/doctrine-bundle": "*",
@@ -501,7 +501,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -509,16 +509,13 @@
                     "JMS\\DiExtraBundle": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache"
             ],
             "authors": [
                 {
                     "name": "Johannes M. Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Allows to configure dependency injection using annotations",
@@ -527,7 +524,10 @@
                 "annotations",
                 "dependency injection"
             ],
-            "time": "2013-06-08 13:13:40"
+            "support": {
+                "source": "https://github.com/tomat/JMSDiExtraBundle/tree/patch-2"
+            },
+            "time": "2013-08-04 11:13:41"
         },
         {
             "name": "jms/metadata",
@@ -1530,12 +1530,17 @@
 
     ],
     "aliases": [
-
+        {
+            "alias": "1.4.0",
+            "alias_normalized": "1.4.0.0",
+            "version": "dev-patch-2",
+            "package": "jms/di-extra-bundle"
+        }
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "jms/di-extra-bundle": 20
+    },
     "platform": {
         "php": ">=5.3.3"
     },

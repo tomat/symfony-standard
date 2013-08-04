@@ -6,6 +6,12 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://github.com/tomat/JMSDiExtraBundle"
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.3.*",
@@ -20,7 +26,7 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "jms/security-extra-bundle": "1.5.*",
-        "jms/di-extra-bundle": "1.4.*"
+        "jms/di-extra-bundle": "dev-patch-2 as 1.4.0"
     },
     "scripts": {
         "post-install-cmd": [
